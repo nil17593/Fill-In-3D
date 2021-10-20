@@ -4,15 +4,30 @@ using UnityEngine;
 
 namespace Epsilon.FillIn3D
 {
+    /// <summary>
+    /// this class handles the logic of cubes that 
+    /// coverd on image after collision the cubes will 
+    /// get destroyed and we can see the image behind of it
+    /// </summary>
     public class ImageCubes : MonoBehaviour
     {
-        private void OnTriggerEnter(Collider other)
+        #region Serialized Fields
+        [SerializeField ]  int numberOfCubes;
+        #endregion
+
+        private void Start()
         {
-            if (other.gameObject.GetComponent<FillCubes>() != null)
+            numberOfCubes = transform.childCount;
+        }
+
+        private void Update()
+        {
+            numberOfCubes = transform.childCount;
+            if (numberOfCubes == 0)
             {
-                Destroy(this.gameObject);
-                Destroy(other.gameObject);
+                GameManager.Instance.LoadLevelWinPanel();
             }
         }
+
     }
 }
